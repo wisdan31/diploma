@@ -1,24 +1,15 @@
-import numpy as np
+from env.gridworld import Grid
+from agents.agent import Agent
+from policies.sweep import SweepPolicy
+from experiments.simple import simple_experiment
 
 SIZE = 10
+env = Grid(SIZE)
+agent = Agent([1, 1])
+policy = SweepPolicy()
+finish = [SIZE - 1, SIZE - 1]
 
-grid = np.zeros((SIZE, SIZE), dtype=int)
+result = simple_experiment(agent, finish, policy, env)
+print("Found finish at", result)
 
 
-start = [0,0]
-
-finish = [SIZE, SIZE]
-
-def simpleAlgorithm(start, finish):
-    while True:
-        current = start
-        if (current == finish):
-            print("Found finish")
-            return
-
-        if (start[1] < SIZE):
-            start[1] += 1
-        else:
-            start[0] += 1
-
-simpleAlgorithm(start, finish)
