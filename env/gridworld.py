@@ -1,9 +1,13 @@
-import numpy as np
-
-class Grid:
+class GridEnv:
     def __init__(self, size):
         self.size = size
-        self.grid = np.zeros((size, size), dtype=int)
-    
-    def in_bounds(self, pos):
-        return (0 <= pos[0] < self.size) and (0 <= pos[1] < self.size)
+        self.agent_pos = [0, 0]
+
+    def observe(self):
+        return tuple(self.agent_pos), self.size
+
+    def step(self, action):
+        if action == "DOWN":
+            self.agent_pos[0] += 1
+        elif action == "RIGHT":
+            self.agent_pos[1] += 1

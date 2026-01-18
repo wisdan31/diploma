@@ -1,15 +1,13 @@
-from env.gridworld import Grid
-from agents.agent import Agent
-from policies.sweep import SweepPolicy
-from experiments.simple import simple_experiment
+from env.gridworld import GridEnv
+from agents import Agent 
+from policies import SweepPolicy   
 
-SIZE = 10
-env = Grid(SIZE)
-agent = Agent([1, 1])
-policy = SweepPolicy()
-finish = [SIZE - 1, SIZE - 1]
+env = GridEnv(10)
+agent = Agent(SweepPolicy())
 
-result = simple_experiment(agent, finish, policy, env)
-print("Found finish at", result)
+while env.agent_pos != [9, 9]:
+    obs = env.observe()
+    action = agent.act(obs)
+    env.step(action)
 
-
+print("Finished at", env.agent_pos)
